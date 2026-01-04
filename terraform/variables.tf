@@ -1,5 +1,5 @@
 variable "source_bucket" {
-  description = "stark-bucket"
+  description = "Name of the existing S3 bucket"
   type        = string
 }
 
@@ -10,12 +10,12 @@ variable "azure_conn_str" {
 }
 
 variable "azure_container" {
-  description = "stark-container"
+  description = "Azure Blob container name"
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "rg"
+  description = "Azure Resource Group name"
   type        = string
 }
 
@@ -26,11 +26,11 @@ variable "location" {
 }
 
 variable "storage_account_name" {
-  description = "stark-digital"
+  description = "Azure Storage Account name"
   type        = string
 }
 
 variable "container_name" {
-  description = "stark-media"
+  description = "Azure Blob container name"
   type        = string
 }

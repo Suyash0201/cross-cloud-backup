@@ -1,5 +1,5 @@
 output "storage_account_name" {
-  description = "stark-digital"
+  description = "Azure Storage Account name"
   value       = azurerm_storage_account.sa.name
 }
 
@@ -10,6 +10,6 @@ output "storage_account_primary_connection_string" {
 }
 
 output "blob_container_name" {
-  description = "stark-media"
+  description = "Azure Blob container name"
   value       = azurerm_storage_container.backup.name
 }
