@@ -13,6 +13,7 @@ variable "aws_region" {
 variable "source_s3_bucket" {
   description = "Existing S3 bucket name to read from"
   type        = string
+  default     = "strak-digital"
 }
 
 variable "source_s3_prefix" {
@@ -24,11 +25,13 @@ variable "source_s3_prefix" {
 variable "azure_subscription_id" {
   description = "Azure subscription ID"
   type        = string
+  default     = "azure_subscription_id"
 }
 
 variable "azure_tenant_id" {
   description = "Azure tenant ID"
   type        = string
+  default     = "azure azure_tenant_id"
 }
 
 variable "azure_location" {
@@ -46,6 +49,7 @@ variable "azure_rg_name" {
 variable "azure_storage_account_name" {
   description = "Globally unique storage account name"
   type        = string
+  default     = "strakbackupsa"
 }
 
 variable "azure_container_name" {
@@ -73,9 +77,9 @@ variable "lambda_memory_mb" {
 }
 
 variable "lambda_reserved_concurrency" {
-  description = "Reserved concurrency for Lambda"
+  description = "Reserved concurrency limit for the Lambda function"
   type        = number
-  default     = 2
+  default     = 1
 }
 
 variable "schedule_expression" {
@@ -89,3 +93,4 @@ variable "kms_key_arn" {
   type        = string
   default     = null
 }
+

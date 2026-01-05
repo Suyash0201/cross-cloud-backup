@@ -33,7 +33,7 @@ def get_azure_creds():
         raise RuntimeError("Azure connection_string missing in secret")
     return conn_str
 
-def handler(event, context):
+def lambda_handler(event, context):
     logger.info("Starting S3 -> Azure Blob sync job")
     if not SOURCE_S3_BUCKET or not AZURE_CONTAINER_NAME or not AZURE_STORAGE_ACCOUNT_NAME:
         raise RuntimeError("Missing required environment variables")
