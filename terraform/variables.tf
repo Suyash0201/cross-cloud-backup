@@ -1,3 +1,9 @@
+variable "region" {
+  description = "AWS region where resources will be deployed"
+  type        = string
+  default     = "ap-south-1" # Mumbai region, adjust if needed
+}
+
 variable "source_bucket" {
   description = "Name of the source S3 bucket"
   type        = string
