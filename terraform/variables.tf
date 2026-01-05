@@ -1,17 +1,20 @@
 variable "source_bucket" {
-  description = "strak-digital"
+  description = "Name of the source S3 bucket"
   type        = string
+  default     = "strak-digital"
 }
 
 # Instead of storing the connection string, store the secret name
 variable "azure_secret_name" {
-  description = "azure-conn-str"
+  description = "Name of the AWS Secrets Manager secret holding the Azure Storage connection string"
   type        = string
+  default     = "azure-conn-str"
 }
 
 variable "resource_group_name" {
-  description = "strak-group"
+  description = "Name of the Azure Resource Group"
   type        = string
+  default     = "strak-group"
 }
 
 variable "location" {
@@ -21,11 +24,13 @@ variable "location" {
 }
 
 variable "storage_account_name" {
-  description = "strak-backup"
+  description = "Name of the Azure Storage Account"
   type        = string
+  default     = "strak-backup"
 }
 
 variable "container_name" {
-  description = "strak-container"
+  description = "Name of the Azure Blob container"
   type        = string
+  default     = "strak-container"
 }

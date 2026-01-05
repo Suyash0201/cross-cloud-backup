@@ -19,8 +19,13 @@ resource "aws_lambda_function" "s3_to_azure" {
   environment {
     variables = {
       SOURCE_BUCKET   = var.source_bucket
-      AZURE_CONTAINER = var.azure_container
-      # Fetch AZURE_CONN_STR securely at runtime instead of storing here
+      AZURE_CONTAINER = var.container_name
+      SECRET_NAME     = var.azure_secret_name
     }
+  }
+
+  tags = {
+    environment = "dev"
+    owner       = "suyash"
   }
 }

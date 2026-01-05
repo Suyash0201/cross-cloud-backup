@@ -13,14 +13,17 @@ resource "azurerm_storage_account" "sa" {
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+  account_kind             = "StorageV2"
+  access_tier              = "Hot"
 
-  enable_https_traffic_only     = true
-  min_tls_version               = "TLS1_2"
-  allow_blob_public_access      = false
-  shared_access_key_enabled     = false
+  enable_https_traffic_only = true
+  min_tls_version           = "TLS1_2"
+  allow_blob_public_access  = false
+  shared_access_key_enabled = false
 
   blob_properties {
     versioning_enabled = true
+    change_feed_enabled = true
     delete_retention_policy {
       days = 7
     }

@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_event_rule" "backup_schedule" {
   name                = "s3-to-azure-backup-schedule"
   description         = "Trigger Lambda every 4 hours"
-  schedule_expression = "rate(4 hours)" # simpler than cron
+  schedule_expression = "rate(4 hours)"
   tags = {
     environment = "dev"
     owner       = "suyash"
@@ -13,7 +13,6 @@ resource "aws_cloudwatch_event_target" "backup_target" {
   target_id = "lambda-backup"
   arn       = aws_lambda_function.s3_to_azure.arn
 
-  # Optional: pass custom input to Lambda
   input = jsonencode({
     action = "backup"
   })
