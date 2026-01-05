@@ -1,7 +1,3 @@
-provider "azurerm" {
-  features {}
-}
-
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
@@ -16,7 +12,6 @@ resource "azurerm_storage_account" "sa" {
   account_kind             = "StorageV2"
   access_tier              = "Hot"
 
-  # Secure defaults
   min_tls_version = "TLS1_2"
 
   blob_properties {

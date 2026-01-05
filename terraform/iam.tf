@@ -1,4 +1,3 @@
-# Needed to fetch AWS account ID
 data "aws_caller_identity" "current" {}
 
 resource "aws_iam_role" "lambda_role" {

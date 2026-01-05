@@ -1,7 +1,7 @@
 variable "region" {
   description = "AWS region where resources will be deployed"
   type        = string
-  default     = "ap-south-1" # Mumbai region, adjust if needed
+  default     = "ap-south-1" # Mumbai region
 }
 
 variable "source_bucket" {
@@ -10,7 +10,6 @@ variable "source_bucket" {
   default     = "strak-digital"
 }
 
-# Instead of storing the connection string, store the secret name
 variable "azure_secret_name" {
   description = "Name of the AWS Secrets Manager secret holding the Azure Storage connection string"
   type        = string
