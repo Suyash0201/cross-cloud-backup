@@ -1,12 +1,12 @@
 variable "source_bucket" {
-  description = "Name of the existing S3 bucket"
+  description = "Name of the existing AWS S3 bucket"
   type        = string
 }
 
-variable "azure_conn_str" {
-  description = "Azure Storage connection string (avoid hardcoding, use secret store)"
+# Instead of storing the connection string, store the secret name
+variable "azure_secret_name" {
+  description = "Name of the AWS Secrets Manager secret holding the Azure Storage connection string"
   type        = string
-  sensitive   = true
 }
 
 variable "resource_group_name" {
@@ -15,7 +15,7 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  description = "Azure region"
+  description = "Azure region for resources"
   type        = string
   default     = "Central India"
 }
@@ -26,6 +26,6 @@ variable "storage_account_name" {
 }
 
 variable "container_name" {
-  description = "Azure Blob container name"
+  description = "Name of the Azure Blob container"
   type        = string
 }

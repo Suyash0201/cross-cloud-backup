@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_role" {
-  name = "lambda-s3-backup-role"
+  name = "star-lambda-s3-backup-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -14,7 +14,7 @@ resource "aws_iam_role" "lambda_role" {
 }
 
 resource "aws_iam_policy" "lambda_policy" {
-  name        = "lambda-s3-readonly-policy"
+  name        = "star-lambda-s3-readonly-policy"
   description = "Allow Lambda to read from S3, fetch secrets, and write logs"
 
   policy = jsonencode({
@@ -31,12 +31,12 @@ resource "aws_iam_policy" "lambda_policy" {
       {
         Action   = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"]
         Effect   = "Allow"
-        Resource = "*"
+        Resource = "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${aws_lambda_function.s3_to_azure.function_name}:*"
       },
       {
         Action   = ["secretsmanager:GetSecretValue"]
         Effect   = "Allow"
-        Resource = "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:azure-conn-str-*"
+        Resource = "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:${var.azure_secret_name}*"
       }
     ]
   })

@@ -1,12 +1,18 @@
 import boto3
-from azure.storage.blob import BlobServiceClient
 import os
+from azure.storage.blob import BlobServiceClient
 
 def lambda_handler(event, context):
     s3 = boto3.client('s3')
+    secrets_client = boto3.client('secretsmanager')
+
     bucket_name = os.environ['SOURCE_BUCKET']
-    azure_conn_str = os.environ['AZURE_CONN_STR']
     container_name = os.environ['AZURE_CONTAINER']
+    secret_name = os.environ['SECRET_NAME']
+
+    # Fetch secret from Secrets Manager
+    secret_value = secrets_client.get_secret_value(SecretId=secret_name)
+    azure_conn_str = secret_value['SecretString']
 
     blob_service_client = BlobServiceClient.from_connection_string(azure_conn_str)
     blob_container = blob_service_client.get_container_client(container_name)
