@@ -9,16 +9,20 @@ def lambda_handler(event, context):
     container_name = os.environ['AZURE_CONTAINER']
 
     blob_service_client = BlobServiceClient.from_connection_string(azure_conn_str)
+    blob_container = blob_service_client.get_container_client(container_name)
 
-    objects = s3.list_objects_v2(Bucket=bucket_name).get('Contents', [])
-    for obj in objects:
-        key = obj['Key']
-        tmp_file = f"/tmp/{key.replace('/', '_')}"  # Lambda /tmp storage
+    files_synced = 0
+    paginator = s3.get_paginator('list_objects_v2')
 
-        s3.download_file(bucket_name, key, tmp_file)
+    for page in paginator.paginate(Bucket=bucket_name):
+        for obj in page.get('Contents', []):
+            key = obj['Key']
+            try:
+                s3_object = s3.get_object(Bucket=bucket_name, Key=key)
+                blob_client = blob_container.get_blob_client(key)
+                blob_client.upload_blob(s3_object['Body'], overwrite=True)
+                files_synced += 1
+            except Exception as e:
+                print(f"Error syncing {key}: {e}")
 
-        blob_client = blob_service_client.get_blob_client(container=container_name, blob=key)
-        with open(tmp_file, "rb") as data:
-            blob_client.upload_blob(data, overwrite=True)
-
-    return {"status": "success", "files_synced": len(objects)}
+    return {"status": "success", "files_synced": files_synced}

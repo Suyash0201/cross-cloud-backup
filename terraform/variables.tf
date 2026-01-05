@@ -4,14 +4,9 @@ variable "source_bucket" {
 }
 
 variable "azure_conn_str" {
-  description = "Azure Storage connection string"
+  description = "Azure Storage connection string (avoid hardcoding, use secret store)"
   type        = string
   sensitive   = true
-}
-
-variable "azure_container" {
-  description = "Azure Blob container name"
-  type        = string
 }
 
 variable "resource_group_name" {
@@ -22,7 +17,7 @@ variable "resource_group_name" {
 variable "location" {
   description = "Azure region"
   type        = string
-  default     = "East US"
+  default     = "Central India"
 }
 
 variable "storage_account_name" {

@@ -15,7 +15,7 @@ resource "aws_iam_role" "lambda_role" {
 
 resource "aws_iam_policy" "lambda_policy" {
   name        = "lambda-s3-readonly-policy"
-  description = "Allow Lambda to read from S3 and write logs"
+  description = "Allow Lambda to read from S3, fetch secrets, and write logs"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -32,6 +32,11 @@ resource "aws_iam_policy" "lambda_policy" {
         Action   = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"]
         Effect   = "Allow"
         Resource = "*"
+      },
+      {
+        Action   = ["secretsmanager:GetSecretValue"]
+        Effect   = "Allow"
+        Resource = "arn:aws:secretsmanager:${var.region}:${data.aws_caller_identity.current.account_id}:secret:azure-conn-str-*"
       }
     ]
   })

@@ -14,7 +14,22 @@ resource "azurerm_storage_account" "sa" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  enable_https_traffic_only = true
+  enable_https_traffic_only     = true
+  min_tls_version               = "TLS1_2"
+  allow_blob_public_access      = false
+  shared_access_key_enabled     = false
+
+  blob_properties {
+    versioning_enabled = true
+    delete_retention_policy {
+      days = 7
+    }
+  }
+
+  tags = {
+    environment = "dev"
+    owner       = "suyash"
+  }
 }
 
 resource "azurerm_storage_container" "backup" {
