@@ -16,14 +16,11 @@ resource "azurerm_storage_account" "sa" {
   account_kind             = "StorageV2"
   access_tier              = "Hot"
 
-  enable_https_traffic_only = true
-  min_tls_version           = "TLS1_2"
-  allow_blob_public_access  = false
-  shared_access_key_enabled = false
+  # Secure defaults
+  min_tls_version = "TLS1_2"
 
   blob_properties {
     versioning_enabled = true
-    change_feed_enabled = true
     delete_retention_policy {
       days = 7
     }
