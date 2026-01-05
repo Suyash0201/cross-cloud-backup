@@ -1,7 +1,7 @@
 variable "region" {
   description = "AWS region where resources will be deployed"
   type        = string
-  default     = "ap-south-1"
+  default     = "ap-south-1" # Mumbai region
 }
 
 variable "source_bucket" {
@@ -31,7 +31,7 @@ variable "location" {
 variable "storage_account_name" {
   description = "Name of the Azure Storage Account"
   type        = string
-  default     = "strak-backup"
+  default     = "strakbackup"
 }
 
 variable "container_name" {
