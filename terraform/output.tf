@@ -1,16 +1,36 @@
-output "storage_account_name" {
-  description = "Name of the Azure Storage Account"
-  value       = azurerm_storage_account.sa.name
+# Outputs for AWS + Azure backup integration
+
+output "lambda_function_name" {
+  description = "Name of the AWS Lambda function performing the S3 to Azure backup"
+  value       = aws_lambda_function.s3_to_azure.function_name
 }
 
-# Consider removing this if you use Managed Identity or SAS tokens
-output "storage_account_primary_connection_string" {
-  description = "Primary connection string for Azure Storage Account (sensitive)"
-  value       = azurerm_storage_account.sa.primary_connection_string
-  sensitive   = true
+output "lambda_function_arn" {
+  description = "ARN of the AWS Lambda function"
+  value       = aws_lambda_function.s3_to_azure.arn
 }
 
-output "container_name" {
+output "eventbridge_rule_name" {
+  description = "Name of the EventBridge rule that triggers the Lambda"
+  value       = aws_cloudwatch_event_rule.backup_schedule.name
+}
+
+output "source_bucket" {
+  description = "Name of the source S3 bucket"
+  value       = var.source_bucket
+}
+
+output "azure_secret_name" {
+  description = "Name of the AWS Secrets Manager secret holding the Azure Storage connection string"
+  value       = var.azure_secret_name
+}
+
+output "azure_container_name" {
   description = "Name of the Azure Blob container"
-  value       = azurerm_storage_container.backup.name
+  value       = var.container_name
+}
+
+output "azure_storage_account_name" {
+  description = "Name of the Azure Storage Account"
+  value       = var.storage_account_name
 }
