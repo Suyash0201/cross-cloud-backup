@@ -1,7 +1,7 @@
 variable "region" {
   description = "AWS region where resources will be deployed"
   type        = string
-  default     = "ap-south-1" # Mumbai region
+  default     = "ap-south-1"
 }
 
 variable "source_bucket" {
